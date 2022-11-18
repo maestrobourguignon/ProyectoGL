@@ -2,10 +2,15 @@ import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 3,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#eee',
+  },
+  containerList: {
+    flex: 3,
+    marginTop: 100,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
   },
   containerBot: {
     flex: 1,
@@ -13,13 +18,20 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#eee',
   },
+  botContainer: {
+    flex: 1,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
   title: {
     fontSize: 25,
     fontWeight: 'bold',
+    color: 'black',
   },
   txt: {
     fontSize: 18,
     textAlign: 'center',
+    color: 'black',
   },
   pressableTxt: {
     fontSize: 18,
@@ -33,6 +45,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#fff',
     width: '80%',
     paddingLeft: 30,
+    color: 'black',
   },
   txtMargin: {
     marginHorizontal: 60,
@@ -71,5 +84,8 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     top: -100,
     left: -100,
+  },
+  width100: {
+    width: '100%',
   },
 });

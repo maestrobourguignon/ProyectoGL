@@ -4,7 +4,7 @@ import { Boton } from '../components/Boton';
 import {Elipse} from '../components/Elipse';
 import {styles} from '../components/styles';
 
-export default () => {
+export default ({navigation}) => {
   return (
     <View style={styles.containerBot}>
       <Elipse />
@@ -18,7 +18,7 @@ export default () => {
         tempor incididunt ut labore et dolore magna aliqua
       </Text>
       <View style={styles.margin60} />
-      <Boton title={'Get Started'} />
+      <Boton title={'Get Started'} onPress={navigation.navigate('Tasks')} />
       <View style={styles.margin60} />
     </View>
   );

@@ -1,19 +1,32 @@
-import React, {useState} from 'react';
-import {
-  Image,
-  StatusBar,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
 import {Boton} from '../components/Boton';
 import {Elipse} from '../components/Elipse';
 import {styles} from '../components/styles';
+import {logIn, tokenLogIn} from '../services/api';
+import Form from '../components/Form';
+import t from '../services/translate';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default ({navigation}) => {
   const [Email, setEmail] = useState();
   const [Password, setPassword] = useState();
+
+  const getToken = async () => {
+    const token = await AsyncStorage.getItem('token');
+    if (!token) {
+      return;
+    } else {
+      tokenLogIn({
+        navigation: navigation,
+        tokenStorage: token,
+      });
+    }
+  };
+
+  useEffect(() => {
+    getToken();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -24,20 +37,12 @@ export default ({navigation}) => {
         style={styles.img}
       />
       <View style={styles.separador} />
-      <TextInput
-        style={styles.txtInput}
-        keyboardType={'email-address'}
-        value={null}
-        onChangeText={val => setEmail(val)}
-        placeholder={'Enter your e-mail'}
-      />
+      <Form type={'email'} ph={t('login.inputEmail')} onChangeText={setEmail} />
       <View style={styles.separador} />
-      <TextInput
-        style={styles.txtInput}
-        secureTextEntry
-        value={null}
-        onChangeText={val => setPassword(val)}
-        placeholder={'Enter your password'}
+      <Form
+        type={'password'}
+        ph={t('login.inputPassword')}
+        onChangeText={setPassword}
       />
       <View style={styles.separador} />
       <View style={styles.margin60}>
@@ -49,9 +54,13 @@ export default ({navigation}) => {
       </View>
       <Boton
         title={'Log In'}
-        onPress={() => {
-          navigation.navigate('GetStarted');
-        }}
+        onPress={() =>
+          logIn({
+            Email,
+            Password,
+            navigation,
+          })
+        }
       />
       <View style={styles.separador} />
       <View style={styles.row}>

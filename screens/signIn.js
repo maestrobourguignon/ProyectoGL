@@ -1,15 +1,12 @@
 import React, {useState} from 'react';
-import {
-  Image,
-  StatusBar,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {Boton} from '../components/Boton';
 import {Elipse} from '../components/Elipse';
 import {styles} from '../components/styles';
+import Form from '../components/Form';
+import t from '../services/translate';
+import {SignIn} from '../services/api';
+import FlashMessage, {showMessage} from 'react-native-flash-message';
 
 export default ({navigation}) => {
   const [Name, setName] = useState();
@@ -23,42 +20,37 @@ export default ({navigation}) => {
       <Text style={styles.title}>Welcome OnBoard!</Text>
       <Text style={styles.txt}>Lets Help you meet up tasks.</Text>
       <View style={styles.separador40} />
-      <TextInput
-        style={styles.txtInput}
-        placeholder="Enter your full name"
-        value={null}
-        onChangeText={val => setName(val)}
+      <Form ph={t('register.inputName')} onChangeText={setName} />
+      <View style={styles.separador} />
+      <Form
+        type={'email'}
+        ph={t('register.inputEmail')}
+        onChangeText={setEmail}
       />
       <View style={styles.separador} />
-      <TextInput
-        style={styles.txtInput}
-        placeholder="Enter your e-mail"
-        keyboardType="email-address"
-        value={null}
-        onChangeText={val => setEmail(val)}
+      <Form
+        type={'password'}
+        ph={t('register.inputPassword')}
+        onChangeText={setPassword}
       />
       <View style={styles.separador} />
-      <TextInput
-        style={styles.txtInput}
-        placeholder="Enter password"
-        secureTextEntry
-        value={null}
-        onChangeText={val => setPassword(val)}
-      />
-      <View style={styles.separador} />
-      <TextInput
-        style={styles.txtInput}
-        placeholder="Confirm password"
-        secureTextEntry
-        value={null}
-        onChangeText={val => setConfirm(val)}
+      <Form
+        type={'password'}
+        ph={t('register.inputConfirm')}
+        onChangeText={setConfirm}
       />
       <View style={styles.separador40} />
       <Boton
         title={'Register'}
-        onPress={() => {
-          navigation.navigate('GetStarted');
-        }}
+        onPress={() =>
+          SignIn({
+            Name: Name,
+            Email: Email,
+            Password: Password,
+            Confirm: Confirm,
+            navigation: navigation,
+          })
+        }
       />
       <View style={styles.separador} />
       <View style={styles.row}>
@@ -70,6 +62,7 @@ export default ({navigation}) => {
           <Text style={[styles.txt, styles.pressableTxt]}>Log In</Text>
         </TouchableOpacity>
       </View>
+      <FlashMessage position="top" />
     </View>
   );
 };
