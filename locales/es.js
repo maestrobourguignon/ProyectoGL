@@ -23,9 +23,9 @@ export default {
     buttonLogout: 'Logout',
   },
   onboarding: {
-    welcome: 'Gets things done with TODo',
-    lorem:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsum eius architecto maiores nisi ab quidem iure? Facere excepturi',
+    welcome: 'Gets things done with ToDo',
+    description:
+      'Hi! Welcome to your personal TaskList, here you will add your ToDos so you can keep register of wich things you have done and wich ones don´t',
     getStarted: 'Get Started',
   },
   createTask: {

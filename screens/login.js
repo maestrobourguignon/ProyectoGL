@@ -7,6 +7,7 @@ import {logIn, tokenLogIn} from '../services/api';
 import Form from '../components/Form';
 import t from '../services/translate';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {showMessage} from 'react-native-flash-message';
 
 export default ({navigation}) => {
   const [Email, setEmail] = useState();
@@ -27,6 +28,20 @@ export default ({navigation}) => {
   useEffect(() => {
     getToken();
   }, []);
+
+  const handleLogIn = () => {
+    logIn({
+      Email,
+      Password,
+      navigation,
+    });
+    showMessage({
+      message: 'Loged In successfuly',
+      type: 'success',
+      icon: 'auto',
+      statusBarHeight: 40,
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -52,16 +67,7 @@ export default ({navigation}) => {
           </Text>
         </TouchableOpacity>
       </View>
-      <Boton
-        title={'Log In'}
-        onPress={() =>
-          logIn({
-            Email,
-            Password,
-            navigation,
-          })
-        }
-      />
+      <Boton title={'Log In'} onPress={handleLogIn} />
       <View style={styles.separador} />
       <View style={styles.row}>
         <Text style={styles.txt}>Don't have an account? </Text>

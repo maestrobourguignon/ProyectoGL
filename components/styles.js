@@ -23,6 +23,46 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
   },
+  taskContainer: {
+    width: '80%',
+    backgroundColor: '#fff',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    paddingLeft: 20,
+    paddingRight: 20,
+    borderRadius: 30,
+    marginVertical: 5,
+    padding: 10,
+  },
+  modalContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(0,0,0,0.3)',
+  },
+  modalSubContainer: {
+    width: '70%',
+    height: '18%',
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    borderRadius: 6,
+  },
+  flatList: {
+    backgroundColor: '#fff',
+    width: '90%',
+    height: '90%',
+    marginTop: 30,
+    borderRadius: 30,
+  },
+  addTask: {
+    width: 200,
+    height: 200,
+    backgroundColor: '#50C2C9',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 100,
+  },
   title: {
     fontSize: 25,
     fontWeight: 'bold',
@@ -87,5 +127,15 @@ export const styles = StyleSheet.create({
   },
   width100: {
     width: '100%',
+  },
+  center: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  complete: {
+    backgroundColor: 'green',
+  },
+  incomplete: {
+    backgroundColor: 'tomato',
   },
 });

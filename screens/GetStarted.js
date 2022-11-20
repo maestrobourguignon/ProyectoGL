@@ -3,8 +3,13 @@ import {View, Image, Text} from 'react-native';
 import { Boton } from '../components/Boton';
 import {Elipse} from '../components/Elipse';
 import {styles} from '../components/styles';
+import t from '../services/translate';
 
 export default ({navigation}) => {
+  const handleGetStarted = () => {
+    navigation.navigate('Tasks');
+  };
+
   return (
     <View style={styles.containerBot}>
       <Elipse />
@@ -13,12 +18,12 @@ export default ({navigation}) => {
         style={styles.img}
       />
       <Text style={styles.title}>Gets things done with ToDo</Text>
+      <View style={styles.separador} />
       <Text style={[styles.txt, styles.txtMargin]}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua
+        {t('onboarding.description')}
       </Text>
       <View style={styles.margin60} />
-      <Boton title={'Get Started'} onPress={navigation.navigate('Tasks')} />
+      <Boton title={'Get Started'} onPress={handleGetStarted} />
       <View style={styles.margin60} />
     </View>
   );

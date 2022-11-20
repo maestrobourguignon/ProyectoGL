@@ -3,6 +3,7 @@ import {useState} from 'react';
 import {showMessage} from 'react-native-flash-message';
 const api = 'https://api-nodejs-todolist.herokuapp.com';
 const apiLogIn = api + '/user/login';
+const apiLogOut = api + '/user/logout';
 const apiRegister = api + '/user/register';
 const apiMe = api + '/user/me';
 const apiTask = api + '/task';
@@ -23,10 +24,21 @@ export const logIn = ({Email, Password, navigation}) => {
       console.log(data);
       console.log('TOKEN OBTTENIDO: ' + data.token);
       await AsyncStorage.setItem('token', data.token);
-      setTokenStorage(data.token);
-      alert('bienvenido!');
       navigation.navigate('GetStarted');
     });
+};
+
+export const logOut = ({tokenStorage, navigation}) => {
+  fetch(apiLogOut, {
+    method: 'POST',
+    headers: {
+      Authorization: 'Bearer ' + tokenStorage,
+    },
+  }).then(async () => {
+    await AsyncStorage.removeItem('token');
+    navigation.navigate('LogIn');
+    // tokenStorage = null;
+  });
 };
 
 export const SignIn = ({Name, Email, Password, Confirm, navigation}) => {
@@ -83,7 +95,6 @@ export const SignIn = ({Name, Email, Password, Confirm, navigation}) => {
         console.log(data);
         console.log('TOKEN OBTTENIDO: ' + data.token);
         await AsyncStorage.setItem('token', data.token);
-        setTokenStorage(data.token);
         alert('bienvenido!');
         navigation.navigate('GetStarted');
       });
@@ -101,7 +112,7 @@ export const tokenLogIn = ({navigation, tokenStorage}) => {
   });
 };
 
-export const getAllTasks = ({tokenStorage}) => {
+export const getAllTasks = ({tokenStorage, setTasks}) => {
   fetch(apiTask, {
     method: 'GET',
     headers: {
@@ -111,5 +122,29 @@ export const getAllTasks = ({tokenStorage}) => {
     .then(response => response.json())
     .then(async data => {
       console.log(data);
+      setTasks(data.data);
     });
+};
+
+export const addTask = ({description, completed, tokenStorage}) => {
+  if (!description) {
+    showMessage({
+      message: 'Cannot create an empty task',
+      type: 'danger',
+      icon: 'auto',
+      statusBarHeight: 40,
+    });
+  } else {
+    fetch(apiTask, {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + tokenStorage,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        description: description,
+        completed: completed,
+      }),
+    });
+  }
 };
