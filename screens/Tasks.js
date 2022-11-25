@@ -1,23 +1,35 @@
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, FlatList, Text, Vibration, View} from 'react-native';
+import {ActivityIndicator, FlatList, Text, View} from 'react-native';
 import {Boton} from '../components/Boton';
 import {Elipse} from '../components/Elipse';
 import {styles} from '../components/styles';
 import t from '../services/translate';
-import {getAllTasks, logOut} from '../services/api';
+import {getAllTasks, logOut, deleteTask} from '../services/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Task from '../components/Task';
 import ListEmpty from '../components/ListEmpty';
+import DeleteModal from '../components/DeleteModal';
+import FlashMessage, {showMessage} from 'react-native-flash-message';
+import SwipeableFlatList from 'react-native-swipeable-list';
+import DeleteButton from '../components/DeleteButton';
 
 export default ({navigation}) => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [modal, setModal] = useState(false);
+  const [modalTxt, setModalTxt] = useState('');
+  const [modalId, setModalId] = useState('');
+  const [myToken, setMyToken] = useState('');
+
   const getToken = async () => {
+    setLoading(true);
     try {
       const token = await AsyncStorage.getItem('token');
+      setMyToken(token);
       getAllTasks({tokenStorage: token, setTasks: setTasks});
     } catch (e) {
       console.log(e);
+      setLoading(false);
     } finally {
       setLoading(false);
     }
@@ -38,29 +50,66 @@ export default ({navigation}) => {
     logOut({tokenStorage: token, navigation: navigation});
   };
 
+  const handleDeleteModal = ([txt, id]) => {
+    setModal(!modal);
+    setModalTxt(txt);
+    setModalId(id);
+  };
+
+  const handleCloseModal = () => {
+    setModal(!modal);
+    setModalTxt('');
+    setModalId('');
+  };
+
+  const handleDeleteTask = () => {
+    deleteTask({id: modalId, tokenStorage: myToken, navigation: navigation});
+    showMessage({
+      message: 'the task: "' + modalTxt + '" Was deleted successfuly',
+      type: 'info',
+      icon: 'none',
+      statusBarHeight: 40,
+    });
+    handleCloseModal();
+    getToken();
+  };
+
   return (
     <View style={styles.container}>
       <Elipse />
-
       <View style={[styles.containerList, styles.width100]}>
         <Text style={styles.title}>To Do List</Text>
-        {loading ? (
-          <ActivityIndicator size={'large'} color={'blue'} />
-        ) : (
-          <View style={styles.width100}>
-            <FlatList
-              data={tasks}
-              keyExtractor={x => String(x._id)}
-              renderItem={({item}) => <Task>{item.description}</Task>}
-              ListEmptyComponent={<ListEmpty onPress={handleNewTask} />}
-            />
-          </View>
-        )}
+
+        <View style={styles.width100}>
+          <SwipeableFlatList
+            data={tasks}
+            keyExtractor={x => String(x._id)}
+            renderItem={({item}) => <Task txt={item.description} />}
+            ListEmptyComponent={<ListEmpty onPress={handleNewTask} />}
+            maxSwipeDistance={70}
+            renderQuickActions={({item}) => (
+              <DeleteButton
+                onPress={handleDeleteModal}
+                txt={item.description}
+                id={item._id}
+              />
+            )}
+            refreshing={loading}
+            onRefresh={getToken}
+          />
+        </View>
       </View>
       <View style={[styles.botContainer, styles.width100]}>
         <Boton title={'Create new Task'} onPress={handleNewTask} />
         <Boton title={'Logout'} onPress={handleLogOut} />
       </View>
+      <DeleteModal
+        visible={modal}
+        close={handleCloseModal}
+        task={modalTxt}
+        Delete={handleDeleteTask}
+      />
+      <FlashMessage position="top" />
     </View>
   );
 };

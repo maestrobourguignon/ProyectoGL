@@ -21,10 +21,14 @@ export const logIn = ({Email, Password, navigation}) => {
   })
     .then(response => response.json())
     .then(async data => {
-      console.log(data);
-      console.log('TOKEN OBTTENIDO: ' + data.token);
       await AsyncStorage.setItem('token', data.token);
-      navigation.navigate('GetStarted');
+      navigation.replace('GetStarted');
+      showMessage({
+        message: 'Loged In successfuly',
+        type: 'success',
+        icon: 'auto',
+        statusBarHeight: 40,
+      });
     });
 };
 
@@ -36,8 +40,13 @@ export const logOut = ({tokenStorage, navigation}) => {
     },
   }).then(async () => {
     await AsyncStorage.removeItem('token');
-    navigation.navigate('LogIn');
-    // tokenStorage = null;
+    navigation.replace('LogIn');
+    showMessage({
+      message: 'You have successfully logged out',
+      type: 'info',
+      icon: 'success',
+      statusBarHeight: 40,
+    });
   });
 };
 
@@ -95,8 +104,13 @@ export const SignIn = ({Name, Email, Password, Confirm, navigation}) => {
         console.log(data);
         console.log('TOKEN OBTTENIDO: ' + data.token);
         await AsyncStorage.setItem('token', data.token);
-        alert('bienvenido!');
-        navigation.navigate('GetStarted');
+        showMessage({
+          message: 'Acount created successfuly',
+          type: 'success',
+          icon: 'auto',
+          statusBarHeight: 40,
+        });
+        navigation.replace('GetStarted');
       });
   }
 };
@@ -108,7 +122,13 @@ export const tokenLogIn = ({navigation, tokenStorage}) => {
       Authorization: 'Bearer ' + tokenStorage,
     },
   }).then(() => {
-    navigation.navigate('GetStarted');
+    navigation.replace('Tasks');
+    showMessage({
+      message: 'Welcome Back!',
+      type: 'success',
+      icon: 'auto',
+      statusBarHeight: 40,
+    });
   });
 };
 
@@ -127,7 +147,7 @@ export const getAllTasks = ({tokenStorage, setTasks}) => {
 };
 
 export const addTask = ({description, completed, tokenStorage}) => {
-  if (!description) {
+  if (description.length < 1) {
     showMessage({
       message: 'Cannot create an empty task',
       type: 'danger',
@@ -145,6 +165,23 @@ export const addTask = ({description, completed, tokenStorage}) => {
         description: description,
         completed: completed,
       }),
-    });
+    }).then(
+      showMessage({
+        message: 'New task created',
+        type: 'success',
+        icon: 'auto',
+        statusBarHeight: 40,
+      }),
+    );
   }
+};
+
+export const deleteTask = ({id, tokenStorage}) => {
+  fetch(apiTask + '/' + id, {
+    method: 'DELETE',
+    headers: {
+      Authorization: 'Bearer ' + tokenStorage,
+      'Content-Type': 'application/json',
+    },
+  });
 };

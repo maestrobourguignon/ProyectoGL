@@ -1,16 +1,13 @@
 import React from 'react';
-import {Text, View, TouchableOpacity} from 'react-native';
+import {Text, View} from 'react-native';
 import {styles} from './styles';
 
-export default ({children, onPress, onLongPress}) => {
+export default ({txt}) => {
   return (
-    <TouchableOpacity
-      style={[styles.width100, styles.center]}
-      onPress={onPress}
-      onLongPress={onLongPress}>
+    <View style={[styles.center]}>
       <View style={styles.taskContainer}>
-        <Text style={styles.txt}>{children}</Text>
+        <Text style={styles.txt}>{txt}</Text>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };

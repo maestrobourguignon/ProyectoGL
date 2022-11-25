@@ -1,13 +1,14 @@
 import React from 'react';
 import {View, Image, Text} from 'react-native';
-import { Boton } from '../components/Boton';
+import FlashMessage from 'react-native-flash-message';
+import {Boton} from '../components/Boton';
 import {Elipse} from '../components/Elipse';
 import {styles} from '../components/styles';
 import t from '../services/translate';
 
 export default ({navigation}) => {
   const handleGetStarted = () => {
-    navigation.navigate('Tasks');
+    navigation.replace('Tasks');
   };
 
   return (
@@ -25,6 +26,7 @@ export default ({navigation}) => {
       <View style={styles.margin60} />
       <Boton title={'Get Started'} onPress={handleGetStarted} />
       <View style={styles.margin60} />
+      <FlashMessage position="top" />
     </View>
   );
 };

@@ -48,6 +48,12 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     borderRadius: 6,
   },
+  deleteContainer: {
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    marginTop: 16,
+    marginRight: 45,
+  },
   flatList: {
     backgroundColor: '#fff',
     width: '90%',
@@ -125,8 +131,16 @@ export const styles = StyleSheet.create({
     top: -100,
     left: -100,
   },
+  elipse2: {
+    position: 'absolute',
+    top: 800,
+    left: 250,
+  },
   width100: {
     width: '100%',
+  },
+  width80: {
+    width: '80%',
   },
   center: {
     alignItems: 'center',
@@ -137,5 +151,43 @@ export const styles = StyleSheet.create({
   },
   incomplete: {
     backgroundColor: 'tomato',
+  },
+  absolute: {
+    position: 'absolute',
+  },
+  textButtonStyle: {
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  deleteButtonStyle: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+    backgroundColor: '#c00000',
+  },
+  rightItem: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: 'yellow',
+  },
+  leftItem: {
+    flex: 1,
+    backgroundColor: '#76a21e',
+    justifyContent: 'center',
+  },
+  leftItemText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginLeft: 20,
+    color: '#fff',
+  },
+  deleteBtn: {
+    fontSize: 15,
+    textAlign: 'center',
+    color: 'red',
+    fontWeight: 'bold',
   },
 });
