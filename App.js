@@ -21,6 +21,7 @@ const App = () => {
         <Stack.Screen name="SignIn" component={Routes.SignInScreen} />
         <Stack.Screen name="GetStarted" component={Routes.GetStartedScreen} />
         <Stack.Screen name="NewTask" component={Routes.NewTaskScreen} />
+        <Stack.Screen name="EditTask" component={Routes.EditTaskScreen} />
         <Stack.Screen name="Tasks" component={Routes.TasksScreen} />
       </Stack.Navigator>
     </NavigationContainer>

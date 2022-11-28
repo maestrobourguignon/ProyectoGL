@@ -176,12 +176,72 @@ export const addTask = ({description, completed, tokenStorage}) => {
   }
 };
 
-export const deleteTask = ({id, tokenStorage}) => {
+export const deleteTask = ({id, tokenStorage, navigation}) => {
   fetch(apiTask + '/' + id, {
     method: 'DELETE',
     headers: {
       Authorization: 'Bearer ' + tokenStorage,
       'Content-Type': 'application/json',
     },
-  });
+  }).then(navigation.addListener());
+};
+
+export const getTaskById = ({
+  id,
+  tokenStorage,
+  setEditedTask,
+  setCompleted,
+  setTaskId,
+}) => {
+  fetch(apiTask + '/' + id, {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + tokenStorage,
+      'Content-Type': 'application/json',
+    },
+  })
+    .then(response => response.json())
+    .then(async data => {
+      console.log('Data traida');
+      console.log(data);
+      setEditedTask(data.data.description);
+      setCompleted(data.data.completed);
+      setTaskId(data.data._id);
+    });
+};
+
+export const editTask = ({
+  description,
+  completed,
+  tokenStorage,
+  id,
+  navigation,
+}) => {
+  if (description.length < 1) {
+    showMessage({
+      message: 'Cannot create an empty task',
+      type: 'danger',
+      icon: 'auto',
+      statusBarHeight: 40,
+    });
+  } else {
+    fetch(apiTask + '/' + id, {
+      method: 'PUT',
+      headers: {
+        Authorization: 'Bearer ' + tokenStorage,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        description: description,
+        completed: completed,
+      }),
+    });
+    navigation.replace('Tasks');
+    showMessage({
+      message: 'Task edited succesfuly',
+      type: 'success',
+      icon: 'auto',
+      statusBarHeight: 40,
+    });
+  }
 };

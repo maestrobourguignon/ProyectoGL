@@ -26,8 +26,8 @@ export const styles = StyleSheet.create({
   taskContainer: {
     width: '80%',
     backgroundColor: '#fff',
-    alignItems: 'flex-start',
-    justifyContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingLeft: 20,
     paddingRight: 20,
     borderRadius: 30,
@@ -78,6 +78,12 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: 'center',
     color: 'black',
+  },
+  completeTxt: {
+    fontSize: 20,
+    textAlign: 'center',
+    marginTop: -3,
+    fontWeight: 'bold',
   },
   pressableTxt: {
     fontSize: 18,
@@ -147,10 +153,10 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   complete: {
-    backgroundColor: 'green',
+    color: 'green',
   },
   incomplete: {
-    backgroundColor: 'tomato',
+    color: 'tomato',
   },
   absolute: {
     position: 'absolute',

@@ -17,8 +17,8 @@ export default ({navigation}) => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [modal, setModal] = useState(false);
-  const [modalTxt, setModalTxt] = useState('');
-  const [modalId, setModalId] = useState('');
+  const [taskTxt, setTaskTxt] = useState('');
+  const [taskId, setTaskId] = useState('');
   const [myToken, setMyToken] = useState('');
 
   const getToken = async () => {
@@ -52,26 +52,32 @@ export default ({navigation}) => {
 
   const handleDeleteModal = ([txt, id]) => {
     setModal(!modal);
-    setModalTxt(txt);
-    setModalId(id);
+    setTaskTxt(txt);
+    setTaskId(id);
   };
 
   const handleCloseModal = () => {
     setModal(!modal);
-    setModalTxt('');
-    setModalId('');
+    setTaskTxt('');
+    setTaskId('');
   };
 
   const handleDeleteTask = () => {
-    deleteTask({id: modalId, tokenStorage: myToken, navigation: navigation});
+    deleteTask({id: taskId, tokenStorage: myToken, navigation: navigation});
     showMessage({
-      message: 'the task: "' + modalTxt + '" Was deleted successfuly',
+      message: 'the task: "' + taskTxt + '" Was deleted successfuly',
       type: 'info',
       icon: 'none',
       statusBarHeight: 40,
     });
     handleCloseModal();
+    navigation.addListener();
     getToken();
+  };
+
+  const handleEdit = async idSelected => {
+    await AsyncStorage.setItem('id', idSelected);
+    navigation.replace('EditTask');
   };
 
   return (
@@ -84,7 +90,13 @@ export default ({navigation}) => {
           <SwipeableFlatList
             data={tasks}
             keyExtractor={x => String(x._id)}
-            renderItem={({item}) => <Task txt={item.description} />}
+            renderItem={({item}) => (
+              <Task
+                txt={item.description}
+                onPress={() => handleEdit(item._id)}
+                completed={item.completed}
+              />
+            )}
             ListEmptyComponent={<ListEmpty onPress={handleNewTask} />}
             maxSwipeDistance={70}
             renderQuickActions={({item}) => (
@@ -106,7 +118,7 @@ export default ({navigation}) => {
       <DeleteModal
         visible={modal}
         close={handleCloseModal}
-        task={modalTxt}
+        task={taskTxt}
         Delete={handleDeleteTask}
       />
       <FlashMessage position="top" />

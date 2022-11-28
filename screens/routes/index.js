@@ -4,6 +4,7 @@ import GetStartedScreen from '../GetStarted';
 import NewTaskScreen from '../NewTask';
 import TasksScreen from '../Tasks';
 import LandingScreen from '../Landing';
+import EditTaskScreen from '../EditTask';
 
 export default {
   LandingScreen,
@@ -12,4 +13,5 @@ export default {
   GetStartedScreen,
   NewTaskScreen,
   TasksScreen,
+  EditTaskScreen,
 };
