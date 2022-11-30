@@ -30,6 +30,7 @@ export default ({navigation}) => {
     addTask({
       description: newTask,
       tokenStorage: token,
+      completed: completed,
     });
     setNewTask(null);
     navigation.goBack();

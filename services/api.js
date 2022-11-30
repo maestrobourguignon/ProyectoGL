@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useState} from 'react';
 import {showMessage} from 'react-native-flash-message';
-const api = 'https://api-nodejs-todolist.herokuapp.com';
+const api = 'https://http-nodejs-production-9473.up.railway.app';
 const apiLogIn = api + '/user/login';
 const apiLogOut = api + '/user/logout';
 const apiRegister = api + '/user/register';
@@ -210,13 +210,7 @@ export const getTaskById = ({
     });
 };
 
-export const editTask = ({
-  description,
-  completed,
-  tokenStorage,
-  id,
-  navigation,
-}) => {
+export const editTask = ({description, completed, tokenStorage, id}) => {
   if (description.length < 1) {
     showMessage({
       message: 'Cannot create an empty task',
@@ -236,7 +230,6 @@ export const editTask = ({
         completed: completed,
       }),
     });
-    navigation.replace('Tasks');
     showMessage({
       message: 'Task edited succesfuly',
       type: 'success',

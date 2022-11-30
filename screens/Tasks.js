@@ -77,7 +77,7 @@ export default ({navigation}) => {
 
   const handleEdit = async idSelected => {
     await AsyncStorage.setItem('id', idSelected);
-    navigation.replace('EditTask');
+    navigation.navigate('EditTask');
   };
 
   return (
