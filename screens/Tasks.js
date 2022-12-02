@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, FlatList, Text, View} from 'react-native';
+import {ActivityIndicator, FlatList, Text, TouchableOpacity, View} from 'react-native';
 import {Boton} from '../components/Boton';
 import {Elipse} from '../components/Elipse';
 import {styles} from '../components/styles';
@@ -12,6 +12,7 @@ import DeleteModal from '../components/DeleteModal';
 import FlashMessage, {showMessage} from 'react-native-flash-message';
 import SwipeableFlatList from 'react-native-swipeable-list';
 import DeleteButton from '../components/DeleteButton';
+import Avatar from '../components/Avatar';
 
 export default ({navigation}) => {
   const [tasks, setTasks] = useState([]);
@@ -77,13 +78,21 @@ export default ({navigation}) => {
 
   const handleEdit = async idSelected => {
     await AsyncStorage.setItem('id', idSelected);
-    navigation.replace('EditTask');
+    navigation.navigate('EditTask');
+  };
+
+  const handleDrawer = () => {
+    navigation.openDrawer();
   };
 
   return (
     <View style={styles.container}>
       <Elipse />
+      <TouchableOpacity style={styles.fixedUserImagen} onPress={handleDrawer}>
+        <Avatar style={styles.miniUserImagen} navigation={navigation} />
+      </TouchableOpacity>
       <View style={[styles.containerList, styles.width100]}>
+        <View style={styles.separador} />
         <Text style={styles.title}>To Do List</Text>
 
         <View style={styles.width100}>

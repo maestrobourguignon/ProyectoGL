@@ -38,11 +38,11 @@ export default ({navigation}) => {
     });
     setEditedTask(null);
     await AsyncStorage.removeItem('id');
-    navigation.addListener();
+    navigation.goBack();
   };
   const handleReturn = async () => {
     await AsyncStorage.removeItem('id');
-    navigation.replace('Tasks');
+    navigation.goBack();
   };
 
   const getData = async () => {

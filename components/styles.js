@@ -61,6 +61,94 @@ export const styles = StyleSheet.create({
     marginTop: 30,
     borderRadius: 30,
   },
+  drawerContainer: {
+    backgroundColor: 'white',
+    flex: 1,
+  },
+  bgContainer: {
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#A0A0A0',
+  },
+  userContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 30,
+  },
+  fixedUserImagen: {
+    position: 'absolute',
+    top: 60,
+    right: 40,
+  },
+  miniUserImagen: {
+    width: 60,
+    height: 60,
+    borderRadius: 70,
+  },
+  userImagen: {
+    width: 130,
+    height: 130,
+    borderRadius: 70,
+  },
+  bigUserImagen: {
+    width: 260,
+    height: 260,
+    borderRadius: 140,
+  },
+  camaraContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  camaraIcon: {
+    width: 20,
+    height: 20,
+    position: 'absolute',
+    left: 15,
+    bottom: 3,
+  },
+  userNombre: {
+    marginVertical: 10,
+  },
+  userTitulo: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 25,
+    color: 'black',
+  },
+  userSubTitulo: {
+    textAlign: 'center',
+    fontSize: 15,
+    color: '#50C2C9',
+    paddingVertical: 5,
+  },
+  menuContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginLeft: 10,
+    marginVertical: 15,
+  },
+  iconoContainer: {
+    flex: 1.5,
+    justifyContent: 'center',
+  },
+  tituloContainer: {
+    flex: 8.5,
+    justifyContent: 'center',
+  },
+  tituloTxt: {
+    fontSize: 15,
+    color: 'black',
+  },
+  difuminado: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  fondoImagen: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    right: 0,
+    bottom: 0,
+  },
   addTask: {
     width: 200,
     height: 200,
@@ -195,5 +283,20 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'red',
     fontWeight: 'bold',
+  },
+  image: {
+    width: 300,
+    height: 300,
+    borderWidth: 3,
+    borderColor: 'black',
+    borderRadius: 20,
+    shadowColor: 'black',
+    shadowOffset: {
+      width: 1,
+      height: 2,
+    },
+    elevation: 2,
+    shadowRadius: 5,
+    shadowOpacity: 0.3,
   },
 });
