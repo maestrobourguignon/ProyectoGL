@@ -1,17 +1,19 @@
 import LogInScreen from '../login';
 import SignInScreen from '../signIn';
-import GetStartedScreen from '../GetStarted';
+import SetImageScreen from '../SetImage';
 import NewTaskScreen from '../NewTask';
 import TasksScreen from '../Tasks';
 import LandingScreen from '../Landing';
 import EditTaskScreen from '../EditTask';
+import ProfileScreen from '../Profile';
 
 export default {
   LandingScreen,
   LogInScreen,
   SignInScreen,
-  GetStartedScreen,
+  SetImageScreen,
   NewTaskScreen,
   TasksScreen,
   EditTaskScreen,
+  ProfileScreen,
 };

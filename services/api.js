@@ -7,6 +7,7 @@ const apiLogOut = api + '/user/logout';
 const apiRegister = api + '/user/register';
 const apiMe = api + '/user/me';
 const apiTask = api + '/task';
+const apiImage = api + '/user/me/avatar';
 
 export const logIn = ({Email, Password, navigation}) => {
   fetch(apiLogIn, {
@@ -22,7 +23,7 @@ export const logIn = ({Email, Password, navigation}) => {
     .then(response => response.json())
     .then(async data => {
       await AsyncStorage.setItem('token', data.token);
-      navigation.replace('GetStarted');
+      navigation.replace('Tasks');
       showMessage({
         message: 'Loged In successfuly',
         type: 'success',
@@ -110,7 +111,7 @@ export const SignIn = ({Name, Email, Password, Confirm, navigation}) => {
           icon: 'auto',
           statusBarHeight: 40,
         });
-        navigation.replace('GetStarted');
+        navigation.replace('Tasks');
       });
   }
 };
@@ -130,6 +131,19 @@ export const tokenLogIn = ({navigation, tokenStorage}) => {
       statusBarHeight: 40,
     });
   });
+};
+
+export const getData = ({tokenStorage, setData}) => {
+  fetch(apiMe, {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + tokenStorage,
+    },
+  })
+    .then(response => response.json())
+    .then(async data => {
+      setData(data.name);
+    });
 };
 
 export const getAllTasks = ({tokenStorage, setTasks}) => {
@@ -237,4 +251,31 @@ export const editTask = ({description, completed, tokenStorage, id}) => {
       statusBarHeight: 40,
     });
   }
+};
+
+export const uploadImage = ({tokenStorage, avatar}) => {
+  fetch(apiImage, {
+    method: 'POST',
+    headers: {
+      Authorization: 'Bearer ' + tokenStorage,
+    },
+    body: JSON.stringify({
+      avatar: avatar,
+    }),
+  });
+};
+
+export const getUserImage = ({id}) => {
+  fetch(api + '/user/' + id + '/avatar', {
+    method: 'GET',
+  });
+};
+
+export const deleteUserImage = ({tokenStorage}) => {
+  fetch(apiImage, {
+    method: 'DELETE',
+    headers: {
+      Authorization: 'Bearer ' + tokenStorage,
+    },
+  });
 };

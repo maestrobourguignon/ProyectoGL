@@ -57,7 +57,7 @@ export default ({navigation}) => {
         <Text style={styles.txt}>Already have an account ? </Text>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('LogIn');
+            navigation.replace('LogIn');
           }}>
           <Text style={[styles.txt, styles.pressableTxt]}>Log In</Text>
         </TouchableOpacity>
